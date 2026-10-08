@@ -64,6 +64,7 @@ def _open_stack(text: str) -> tuple[list[str], bool, bool]:
     stack: list[str] = []
     in_string = False
     escaped = False
+    pending_key = False  # key position: `{`/`,` seen, no `:` yet
     dangling_key = False
     for ch in text:
         if in_string:
@@ -73,19 +74,24 @@ def _open_stack(text: str) -> tuple[list[str], bool, bool]:
                 escaped = True
             elif ch == '"':
                 in_string = False
-                dangling_key = True
+                dangling_key = pending_key
         elif ch == '"':
             in_string = True
         elif ch in _OPENERS:
             stack.append(ch)
+            pending_key = ch == "{"
             dangling_key = False
         elif ch in _CLOSERS:
             if not stack or stack[-1] != _CLOSERS[ch]:
                 return [], False, False  # crossed closers: ambiguous, refuse to guess
             stack.pop()
+            pending_key = False
             dangling_key = False
-        elif ch in ":,":
-            dangling_key = ch == ","
+        elif ch == ":":
+            pending_key = False
+            dangling_key = False
+        elif ch == ",":
+            pending_key = True
     return stack, in_string, dangling_key and bool(stack) and stack[-1] == "{"
 
 
@@ -160,7 +166,7 @@ def repair_format(text: str, call: ToolCall) -> RepairResult:
         except JSONDecodeError:
             pass
 
-    if not mutations:
+    if not mutations:  # F03 already produced a strictly structural close; salvage is not needed
         try:
             json.loads(before)
         except JSONDecodeError:

@@ -63,9 +63,17 @@ def test_f03_closes_unbalanced_brackets_with_low_confidence():
     assert result.confidence == "low"
 
 
-def test_f03_no_mutation_when_ending_mid_string():
+def test_f03_closes_truncation_after_complete_value_string():
+    result = repair_format("noise", _call('{"city": "تهران"'))
+    assert [m.rule_id for m in result.mutations] == ["F03"]
+    assert result.call["function"]["arguments"] == '{"city": "تهران"}'
+    assert result.confidence == "low"
+
+
+def test_f01_salvages_when_string_value_never_closed():
     result = repair_format("noise", _call('{"city": "تهرا'))
-    assert [m.rule_id for m in result.mutations] != ["F03"]
+    assert [m.rule_id for m in result.mutations] == ["F01"]
+    assert result.confidence == "high"
 
 
 def test_repair_format_uses_extracted_call_when_arguments_empty():
