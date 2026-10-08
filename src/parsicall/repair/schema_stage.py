@@ -24,6 +24,7 @@ def _norm(text: str) -> str:
 
 
 def _valid(args: dict[str, Any], schema: dict[str, Any]) -> bool:
+    # no FormatChecker: `format` (e.g. "date") is not enforced, so "valid" != "well-formed date"
     try:
         validate(instance=args, schema=schema)
     except (ValidationError, SchemaError):
@@ -131,11 +132,9 @@ def repair_schema(
         mutations.append(Mutation(rule_id, f"arguments.{key}", _show(value), _show(new)))
         fixed[key] = new
 
-    confidence: Confidence = "high"
-    if not mutations:
-        confidence = "high" if _valid(args, schema) else "low"
-    elif not _valid(fixed, schema):
-        return RepairResult(call=result, mutations=[], confidence="low")  # repair did not help
-    else:
+    # "high" only when at least one mutation landed and the result validates; anything else is "low"
+    confidence: Confidence = "low"
+    if mutations and _valid(fixed, schema):
         result["function"]["arguments"] = json.dumps(fixed, ensure_ascii=False)
+        confidence = "high"
     return RepairResult(call=result, mutations=mutations, confidence=confidence)

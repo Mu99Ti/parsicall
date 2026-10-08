@@ -83,7 +83,7 @@ def test_valid_args_noop():
     }
     res = repair_schema(call, schema)
     assert res.mutations == []
-    assert res.confidence == "high"
+    assert res.confidence == "low"  # clean pass-through is never "high": high iff mutation + valid
     assert _args(res) == {"date": "2025-10-09", "count": 3}
 
 
@@ -108,6 +108,34 @@ def test_unresolvable_date_leaves_value_and_does_not_crash():
     res = repair_schema(call, schema)
     assert res.mutations == []
     assert _args(res)["date"] == "۱۴۰۴/۰۷/۳۱"
+    assert res.confidence == "low"  # unrepaired garbage must never read as confident-good
+
+
+def test_dash_form_jalali_is_left_alone_to_protect_valid_iso():
+    # deliberate fail-closed trade: "۱۴۰۴-۰۷-۱۷" is a valid Gregorian ISO date, so it is not
+    # re-parsed as Jalali — corrupting a good value is worse than leaving an ambiguous one
+    call = _call({"date": "۱۴۰۴-۰۷-۱۷"})
+    schema = {
+        "type": "object",
+        "properties": {"date": {"type": "string", "format": "date"}},
+        "required": ["date"],
+    }
+    res = repair_schema(call, schema)
+    assert res.mutations == []
+    assert _args(res)["date"] == "۱۴۰۴-۰۷-۱۷"
+
+
+def test_mutations_survive_when_final_args_still_fail_validation():
+    call = _call({"count": "۱۲۳"})
+    schema = {
+        "type": "object",
+        "properties": {"count": {"type": "integer"}},
+        "required": ["count", "note"],  # "note" is absent and S never adds keys
+    }
+    res = repair_schema(call, schema)
+    assert [m.rule_id for m in res.mutations] == ["S02"]
+    assert _args(res)["count"] == "۱۲۳"  # original call kept, mutation record not discarded
+    assert res.confidence == "low"
 
 
 def test_invalid_args_no_rule_covers_returns_original_with_low_confidence():
