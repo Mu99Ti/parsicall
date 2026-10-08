@@ -168,3 +168,22 @@ def test_strict_policy_rejects_a_guess_that_does_not_validate():
     assert result.confidence == "low"  # status never landed in the enum
     assert decide(result, PolicyConfig(mode="strict")) == "reject"
     assert decide(result, PolicyConfig(mode="permissive")) == "emit"
+
+
+def test_fixture_corpus_exercises_every_rule_the_pipeline_can_emit():
+    # F02 is deliberately absent: repair_call passes content "", so extract_tool_call
+    # (which needs empty arguments AND assistant content) can never fire in the pipeline.
+    expected = {"F01", "F03", "S01", "S02", "S03", "P01", "P02", "P03", "P04", "P05"}
+    contexts = (
+        {"known_values": None, "toman_rate": None},
+        {"known_values": KNOWN_VALUES, "toman_rate": TOMAN_RATE},
+    )
+    seen = {
+        mutation.rule_id
+        for context in contexts
+        for row, tools_schemas in FIXTURES
+        for mutation in repair_call(
+            _call(row), tools_schemas=tools_schemas, **context
+        ).mutations
+    }
+    assert expected <= seen
