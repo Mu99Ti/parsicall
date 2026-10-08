@@ -23,6 +23,10 @@ python_version = "3.12"
 strict = true
 packages = ["parsicall"]
 
+[[tool.mypy.overrides]]
+module = ["persiantools", "persiantools.*"]
+follow_imports = "skip"
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
