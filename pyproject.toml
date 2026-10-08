@@ -27,6 +27,11 @@ packages = ["parsicall"]
 module = ["persiantools", "persiantools.*"]
 follow_imports = "skip"
 
+[[tool.mypy.overrides]]
+module = ["jsonschema", "jsonschema.*"]
+follow_imports = "skip"
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]

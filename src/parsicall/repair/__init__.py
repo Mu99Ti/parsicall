@@ -1,4 +1,12 @@
 from parsicall.repair.format_stage import extract_tool_call, repair_format
+from parsicall.repair.schema_stage import repair_schema
 from parsicall.repair.types import Mutation, RepairResult, ToolCall
 
-__all__ = ["Mutation", "RepairResult", "ToolCall", "extract_tool_call", "repair_format"]
+__all__ = [
+    "Mutation",
+    "RepairResult",
+    "ToolCall",
+    "extract_tool_call",
+    "repair_format",
+    "repair_schema",
+]
