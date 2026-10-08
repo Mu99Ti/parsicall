@@ -1,0 +1,50 @@
+{"tool": "pay", "arguments_raw": "{\"amount\": 100,}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{'amount': 100}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{amount: 100}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": 100} trailing junk", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": 100,,}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": 100, \"note\" }", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}, "note": {"type": "string"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": 100", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": 100, \"note\": \"hi\"", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}, "note": {"type": "string"}}}}
+{"tool": "pay", "arguments_raw": "{\"meta\": {\"x\": 1}", "schema": {"type": "object", "properties": {"meta": {"type": "object", "properties": {"x": {"type": "integer"}}}}}}
+{"tool": "contact", "arguments_raw": "{\"phone\": \"۰۹۱۲", "schema": {"type": "object", "properties": {"phone": {"type": "string"}}}}
+{"tool": "send_sms", "arguments_raw": "{\"to\": \"۰۹۱۲۳۴۵۶۷۸۹\", \"body\": \"سلام\"", "schema": {"type": "object", "properties": {"to": {"type": "string"}, "body": {"type": "string"}}}}
+{"tool": "book", "arguments_raw": "{\"date\": \"1404/07/17\"}", "schema": {"type": "object", "properties": {"date": {"type": "string", "format": "date"}}}}
+{"tool": "book", "arguments_raw": "{\"date\": \"۱۴۰۴/۰۷/۱۷\"}", "schema": {"type": "object", "properties": {"date": {"type": "string", "format": "date"}}}}
+{"tool": "book", "arguments_raw": "{\"due_date\": \"۱۷ مهر ۱۴۰۴\"}", "schema": {"type": "object", "properties": {"due_date": {"type": "string", "format": "date"}}}}
+{"tool": "book", "arguments_raw": "{\"date\": \"1404/07/31\"}", "schema": {"type": "object", "properties": {"date": {"type": "string", "format": "date"}}}}
+{"tool": "book", "arguments_raw": "{\"date\": \"2025-10-09\"}", "schema": {"type": "object", "properties": {"date": {"type": "string", "format": "date"}}}}
+{"tool": "count", "arguments_raw": "{\"count\": \"۱۲۳\"}", "schema": {"type": "object", "properties": {"count": {"type": "integer"}}}}
+{"tool": "count", "arguments_raw": "{\"count\": \"۰\"}", "schema": {"type": "object", "properties": {"count": {"type": "integer"}}}}
+{"tool": "measure", "arguments_raw": "{\"ratio\": \"۱۲.۵\"}", "schema": {"type": "object", "properties": {"ratio": {"type": "number"}}}}
+{"tool": "search", "arguments_raw": "{\"status\": \"PAID\"}", "schema": {"type": "object", "properties": {"status": {"type": "string", "enum": ["paid", "cancelled"]}}}}
+{"tool": "search", "arguments_raw": "{\"status\": \"پرداخت‌شده\"}", "schema": {"type": "object", "properties": {"status": {"type": "string", "enum": ["پرداخت شده", "سررسید"]}}}}
+{"tool": "search", "arguments_raw": "{\"status\": \"پرداخت\"}", "schema": {"type": "object", "properties": {"status": {"type": "string", "enum": ["پرداخت شده", "پرداخت نهایی"]}}}}
+{"tool": "lookup", "arguments_raw": "{\"code\": \"۱۲\"}", "schema": {"type": "object", "properties": {"code": {"type": "integer"}}}}
+{"tool": "contact", "arguments_raw": "{\"phone\": \"۰۹۱۲۳۴۵۶۷۸۹\"}", "schema": {"type": "object", "properties": {"phone": {"type": "string"}}}}
+{"tool": "contact", "arguments_raw": "{\"phone\": \"۰۹۱۲۳۴۵۶۷۸۹\", \"name\": \"علي كاظمی\"}", "schema": {"type": "object", "properties": {"phone": {"type": "string"}, "name": {"type": "string"}}}}
+{"tool": "book", "arguments_raw": "{\"created_at\": \"۱۴۰۴/۰۷/۱۷\"}", "schema": {"type": "object", "properties": {"created_at": {"type": "string"}}}}
+{"tool": "book", "arguments_raw": "{\"due_date\": \"۱۷ مهر ۱۴۰۴\"}", "schema": {"type": "object", "properties": {"due_date": {"type": "string"}}}}
+{"tool": "book", "arguments_raw": "{\"date\": \"۱۴۰۴/۰۷/۳۱\"}", "schema": {"type": "object", "properties": {"date": {"type": "string"}}}}
+{"tool": "book", "arguments_raw": "{\"birth\": \"1360/01/01\"}", "schema": {"type": "object", "properties": {"birth": {"type": "string"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": \"50000 ریال\"}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": \"۵۰۰ تومان\"}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": \"105 ریال\"}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"amount\": \"5000 تومان و پنج ریال\"}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "pay", "arguments_raw": "{\"note\": \"پرداخت 50000 ریال بابت قسط\"}", "schema": {"type": "object", "properties": {"note": {"type": "string"}}}}
+{"tool": "pay", "arguments_raw": "{\"status\": \"پرداخت‌شده\"}", "schema": {"type": "object", "properties": {"status": {"type": "string"}}}}
+{"tool": "pay", "arguments_raw": "{\"status\": \"در انتظار بررسی\"}", "schema": {"type": "object", "properties": {"status": {"type": "string"}}}}
+{"tool": "pay", "arguments_raw": "{\"status\": \"PAID\"}", "schema": {"type": "object", "properties": {"status": {"type": "string"}}}}
+{"tool": "pay", "arguments_raw": "{\"payer\": \"مهدی كاظمی\", \"amount\": \"2000 تومان\"}", "schema": {"type": "object", "properties": {"payer": {"type": "string"}, "amount": {"type": "integer"}}}}
+{"tool": "noop_tool", "arguments_raw": "{}", "schema": {"type": "object", "properties": {}}}
+{"tool": "noop_tool", "arguments_raw": "{\"note\": \"\"}", "schema": {"type": "object", "properties": {"note": {"type": "string"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"count\": 3}", "schema": {"type": "object", "properties": {"count": {"type": "integer"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"date\": \"2025-10-09\", \"count\": 3}", "schema": {"type": "object", "properties": {"date": {"type": "string", "format": "date"}, "count": {"type": "integer"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"phone\": \"09123456789\"}", "schema": {"type": "object", "properties": {"phone": {"type": "string"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"name\": \"علی کاظمی\"}", "schema": {"type": "object", "properties": {"name": {"type": "string"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"meta\": {\"x\": 1}, \"n\": 2}", "schema": {"type": "object", "properties": {"meta": {"type": "object", "properties": {"x": {"type": "integer"}}}, "n": {"type": "integer"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"flag\": true, \"ratio\": 1.5, \"note\": null}", "schema": {"type": "object", "properties": {"flag": {"type": "boolean"}, "ratio": {"type": "number"}, "note": {"type": "null"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"data\": [1, 2, 3]}", "schema": {"type": "object", "properties": {"data": {"type": "array"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"amount\": 5000}", "schema": {"type": "object", "properties": {"amount": {"type": "integer"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"text\": \"hello world\"}", "schema": {"type": "object", "properties": {"text": {"type": "string"}}}}
+{"tool": "noop_tool", "arguments_raw": "{\"name\": \"علی کاظمی\", \"status\": \"پرداخت شده\"}", "schema": {"type": "object", "properties": {"name": {"type": "string"}, "status": {"type": "string"}}}}
